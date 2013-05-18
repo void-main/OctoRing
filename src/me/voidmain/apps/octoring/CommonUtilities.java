@@ -8,7 +8,7 @@ public final class CommonUtilities {
     /**
      * Base URL
      */
-    static final String SERVER_URL = "http://127.0.0.1:9292";
+    static final String SERVER_URL = "http://192.168.1.106:5000";
 
     /**
      * Google API project id registered to use GCM.

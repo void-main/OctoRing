@@ -21,8 +21,6 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		checkNotNull(CommonUtilities.SERVER_URL, "SERVER_URL");
-		checkNotNull(CommonUtilities.SENDER_ID, "SENDER_ID");
 		// Make sure the device has the proper dependencies.
 		GCMRegistrar.checkDevice(this);
 		// Make sure the manifest was properly set - comment out this line
@@ -90,13 +88,6 @@ public class MainActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
-	}
-
-	private void checkNotNull(Object reference, String name) {
-		if (reference == null) {
-			throw new NullPointerException(getString(R.string.error_config,
-					name));
-		}
 	}
 	
 	private final BroadcastReceiver mHandleMessageReceiver =
