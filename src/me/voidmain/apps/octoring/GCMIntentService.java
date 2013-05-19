@@ -55,8 +55,8 @@ public class GCMIntentService extends GCMBaseIntentService {
 	protected void onMessage(Context context, Intent intent) {
 		Log.i(TAG, "Received message");
 		String message = getString(R.string.gcm_message);
-		CommonUtilities.sendMessage(context,
-				CommonUtilities.MESSAGE_TYPE_GOT_MESSAGE, message);
+		Log.i(TAG, message);
+		PushReminderService.stopOnGoingNotification(context);
 	}
 
 	@Override

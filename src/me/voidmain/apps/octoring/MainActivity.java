@@ -61,8 +61,6 @@ public class MainActivity extends FragmentActivity {
 			if (messageType == CommonUtilities.MESSAGE_TYPE_SERVER_REGISTERED) {
 				FragmentTransactionUtilities.transTo(MainActivity.this,
 						new CountdownFragment(), "CountdownFragment", true);
-			} else if(messageType == CommonUtilities.MESSAGE_TYPE_GOT_MESSAGE) {
-				PushReminderService.stopOnGoingNotification(MainActivity.this);
 			}
 
 			if (!TextUtils.isEmpty(newMessage)) {
