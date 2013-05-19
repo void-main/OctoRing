@@ -1,5 +1,6 @@
 package me.voidmain.apps.octoring;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -13,7 +14,7 @@ public class PushReminderReceiver extends BroadcastReceiver {
 
 	public static final int REQUEST_SETUP_NOTIFICATION = 3000;
 	public static final int PUSH_NOTIFICATION_ID = 4000;
-	public static final int CONGRATULATION_NOTIFICATON_IO = 4001;
+	public static final int CONGRATULATION_NOTIFICATON_ID = 4001;
 	
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -40,7 +41,10 @@ public class PushReminderReceiver extends BroadcastReceiver {
 		mBuilder.setContentIntent(resultPendingIntent);
 		NotificationManager notificationManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
-		notificationManager.notify(PUSH_NOTIFICATION_ID, mBuilder.build());
+		Notification notif = mBuilder.build();
+		notif.defaults |= Notification.DEFAULT_SOUND;
+		notif.defaults |= Notification.DEFAULT_VIBRATE;
+		notificationManager.notify(PUSH_NOTIFICATION_ID, notif);
 	}
 
 	public static void stopOnGoingNotification(final Context context) {
@@ -63,7 +67,10 @@ public class PushReminderReceiver extends BroadcastReceiver {
 		PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,
 				PendingIntent.FLAG_UPDATE_CURRENT);
 		mBuilder.setContentIntent(resultPendingIntent);
-		notificationManager.notify(PUSH_NOTIFICATION_ID, mBuilder.build());
+		Notification notif = mBuilder.build();
+		notif.defaults |= Notification.DEFAULT_SOUND;
+		notif.defaults |= Notification.DEFAULT_VIBRATE;
+		notificationManager.notify(CONGRATULATION_NOTIFICATON_ID, notif);
 	}
 
 }
