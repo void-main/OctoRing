@@ -19,5 +19,11 @@
     </string-array>
     
     <string name="text_countdown_placeholder">Happy hacking!</string>
+    
+    <string name="notification_content_title">"Don't forget to contribute"</string>
+    <string name="notification_content_text">"you haven't done any contribution to the opensource world today"</string>
+    
+    <string name="notification_congra_content_title">"Thank you for contribution"</string>
+    <string name="notification_congra_content_text">"The world gets better thanks to your contribution"</string>
 
 </resources>

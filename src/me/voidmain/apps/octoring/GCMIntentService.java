@@ -1,8 +1,13 @@
 package me.voidmain.apps.octoring;
 
+import java.util.Calendar;
+import java.util.TimeZone;
+
 import me.voidmain.apps.octoring.utils.CommonUtilities;
 import me.voidmain.apps.octoring.utils.PrefsUtilities;
 import me.voidmain.apps.octoring.utils.ServerUtilities;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -27,6 +32,9 @@ public class GCMIntentService extends GCMBaseIntentService {
 		ServerUtilities
 				.register(context, registrationId, PrefsUtilities
 						.getPrefsString(context, R.string.prefs_key_path));
+
+		startAlarmService();
+		PushReminderService.startOnGoingNotification(context);
 		CommonUtilities.sendMessage(context,
 				CommonUtilities.MESSAGE_TYPE_SERVER_REGISTERED, "");
 	}
@@ -47,7 +55,8 @@ public class GCMIntentService extends GCMBaseIntentService {
 	protected void onMessage(Context context, Intent intent) {
 		Log.i(TAG, "Received message");
 		String message = getString(R.string.gcm_message);
-		CommonUtilities.sendMessage(context, CommonUtilities.MESSAGE_TYPE_GOT_MESSAGE, message);
+		CommonUtilities.sendMessage(context,
+				CommonUtilities.MESSAGE_TYPE_GOT_MESSAGE, message);
 	}
 
 	@Override
@@ -72,6 +81,27 @@ public class GCMIntentService extends GCMBaseIntentService {
 				CommonUtilities.MESSAGE_TYPE_GCM_RECOVERABLE_ERROR,
 				getString(R.string.gcm_recoverable_error, errorId));
 		return super.onRecoverableError(context, errorId);
+	}
+
+	private void startAlarmService() {
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		if (cal.get(Calendar.HOUR_OF_DAY) >= 15) {
+			cal.add(Calendar.DATE, 1);
+		} else {
+			cal.set(Calendar.HOUR_OF_DAY, 15);
+		}
+
+		Intent reminderIntent = new Intent(this, PushReminderService.class);
+		PendingIntent pintent = PendingIntent.getService(this,
+				PushReminderService.REQUEST_SETUP_NOTIFICATION, reminderIntent,
+				0);
+
+		AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
+				AlarmManager.INTERVAL_DAY, pintent);
 	}
 
 }
