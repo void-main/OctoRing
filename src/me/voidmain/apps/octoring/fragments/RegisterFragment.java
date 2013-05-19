@@ -18,8 +18,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.android.gcm.GCMRegistrar;
 
@@ -28,6 +29,8 @@ public class RegisterFragment extends Fragment {
 	private EditText mEtGithubLogin;
 	private Spinner mSpLoginType;
 	private Button mBtnRegister;
+	private ProgressBar mPbLoading;
+	private ImageView mIvLoadingPlaceholder;
 
 	AsyncTask<Void, Void, Void> mRegisterTask;
 
@@ -81,6 +84,12 @@ public class RegisterFragment extends Fragment {
 		mSpLoginType.setAdapter(adapter);
 		mSpLoginType.setSelection(0);
 
+		mPbLoading = (ProgressBar) getView().findViewById(R.id.pb_loading);
+		mIvLoadingPlaceholder = (ImageView) getView().findViewById(R.id.iv_static_loading);
+		
+		mPbLoading.setVisibility(View.GONE);
+		mIvLoadingPlaceholder.setVisibility(View.VISIBLE);
+
 		mBtnRegister.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -91,8 +100,8 @@ public class RegisterFragment extends Fragment {
 						.getCurrentFocus().getWindowToken(),
 						InputMethodManager.HIDE_NOT_ALWAYS);
 
-				Toast.makeText(getActivity(), "Registering...",
-						Toast.LENGTH_LONG).show();
+				mPbLoading.setVisibility(View.VISIBLE);
+				mIvLoadingPlaceholder.setVisibility(View.GONE);
 
 				String login = mEtGithubLogin.getText().toString();
 				String type = mSpLoginType.getSelectedItem().toString()
@@ -113,7 +122,8 @@ public class RegisterFragment extends Fragment {
 			GCMRegistrar.register(getActivity(), CommonUtilities.SENDER_ID);
 		} else {
 			if (GCMRegistrar.isRegisteredOnServer(getActivity())) {
-				FragmentTransactionUtilities.transTo(getActivity(), new CountdownFragment(), "CountdownFragment", true);
+				FragmentTransactionUtilities.transTo(getActivity(),
+						new CountdownFragment(), "CountdownFragment", true);
 			} else {
 				setupAsyncTasks(getActivity(), regId,
 						PrefsUtilities.getPrefsString(getActivity(),

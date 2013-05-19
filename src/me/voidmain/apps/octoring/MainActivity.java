@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.widget.Toast;
 
@@ -27,11 +28,13 @@ public class MainActivity extends FragmentActivity {
 
 		registerReceiver(mHandleMessageReceiver, new IntentFilter(
 				CommonUtilities.UPDATE_PUSH_STATUS_ACTION));
-		
-		if(GCMRegistrar.isRegistered(this)) {
-			FragmentTransactionUtilities.transTo(this, new CountdownFragment(), "CountdownFragment", true);
+
+		if (GCMRegistrar.isRegistered(this)) {
+			FragmentTransactionUtilities.transTo(this, new CountdownFragment(),
+					"CountdownFragment", true);
 		} else { // Needs registration
-			FragmentTransactionUtilities.transTo(this, new RegisterFragment(), "RegisterFragment", true);
+			FragmentTransactionUtilities.transTo(this, new RegisterFragment(),
+					"RegisterFragment", true);
 		}
 	}
 
@@ -52,13 +55,18 @@ public class MainActivity extends FragmentActivity {
 		public void onReceive(Context context, Intent intent) {
 			String newMessage = intent.getExtras().getString(
 					CommonUtilities.EXTRA_MESSAGE);
-			int messageType = intent.getExtras().getInt(CommonUtilities.EXTRA_MESSAGE_TYPE);
-			
-			if(messageType == CommonUtilities.MESSAGE_TYPE_SERVER_REGISTERED) {
-				FragmentTransactionUtilities.transTo(MainActivity.this, new CountdownFragment(), "CountdownFragment", true);
+			int messageType = intent.getExtras().getInt(
+					CommonUtilities.EXTRA_MESSAGE_TYPE);
+
+			if (messageType == CommonUtilities.MESSAGE_TYPE_SERVER_REGISTERED) {
+				FragmentTransactionUtilities.transTo(MainActivity.this,
+						new CountdownFragment(), "CountdownFragment", true);
 			}
-			Toast.makeText(MainActivity.this, newMessage, Toast.LENGTH_LONG)
-					.show();
+
+			if (!TextUtils.isEmpty(newMessage)) {
+				Toast.makeText(MainActivity.this, newMessage, Toast.LENGTH_LONG)
+						.show();
+			}
 		}
 	};
 

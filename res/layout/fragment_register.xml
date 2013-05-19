@@ -45,12 +45,21 @@
         android:text="@string/text_register" />
 
     <ImageView
-        android:id="@+id/iv_github_icon"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:id="@+id/iv_static_loading"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="-80dp"
-        android:src="@drawable/github_icon" />
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/spinner_static" />
+
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        style="@style/Spinner"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp" />
 
 </RelativeLayout>
