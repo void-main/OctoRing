@@ -85,10 +85,10 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 	private void startAlarmService() {
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
-		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.MINUTE, 35);
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
-		if (cal.get(Calendar.HOUR_OF_DAY) >= 15) {
+		if (cal.get(Calendar.HOUR_OF_DAY) > 15) {
 			cal.add(Calendar.DATE, 1);
 		} else {
 			cal.set(Calendar.HOUR_OF_DAY, 15);
