@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.util.Log;
 
 public class PushReminderService extends Service {
 
@@ -22,6 +23,7 @@ public class PushReminderService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+		Log.e("TAG", "asdf");
 		startOnGoingNotification(this);
 		return super.onStartCommand(intent, flags, startId);
 	}
