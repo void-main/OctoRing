@@ -23,7 +23,7 @@ public class PushReminderService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Log.e("TAG", "asdf");
+		Log.d("TAG", "PushReminderService started!");
 		startOnGoingNotification(this);
 		return super.onStartCommand(intent, flags, startId);
 	}

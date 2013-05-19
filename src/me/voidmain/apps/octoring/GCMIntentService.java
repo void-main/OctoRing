@@ -85,13 +85,13 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 	private void startAlarmService() {
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
-		cal.set(Calendar.MINUTE, 38);
+		cal.set(Calendar.MINUTE, 50);
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
 		if (cal.get(Calendar.HOUR_OF_DAY) > 15) {
-			cal.add(Calendar.DATE, 1);
-		} else {
 			cal.set(Calendar.HOUR_OF_DAY, 15);
+		} else {
+			cal.add(Calendar.DATE, -1);
 		}
 
 		Intent reminderIntent = new Intent(this, PushReminderService.class);
@@ -101,7 +101,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 		AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 		alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
-				AlarmManager.INTERVAL_DAY, pintent);
+				1000, pintent);
 	}
 
 }
