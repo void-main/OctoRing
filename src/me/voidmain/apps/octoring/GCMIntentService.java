@@ -88,12 +88,10 @@ public class GCMIntentService extends GCMBaseIntentService {
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
-//		if (cal.get(Calendar.HOUR_OF_DAY) >= 15) {
-//			cal.add(Calendar.DATE, 1);
-//		} else {
-//			cal.set(Calendar.HOUR_OF_DAY, 15);
-//		}
-		cal.set(Calendar.HOUR_OF_DAY, 15); // past
+		if (cal.get(Calendar.HOUR_OF_DAY) >= 15) {
+			cal.add(Calendar.DATE, 1);
+		}
+		cal.set(Calendar.HOUR_OF_DAY, 15); // alarm at 15 o'clock
 
 		System.out.println(cal);
 
