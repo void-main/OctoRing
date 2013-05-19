@@ -52,8 +52,9 @@ public class MainActivity extends FragmentActivity {
 		public void onReceive(Context context, Intent intent) {
 			String newMessage = intent.getExtras().getString(
 					CommonUtilities.EXTRA_MESSAGE);
+			int messageType = intent.getExtras().getInt(CommonUtilities.EXTRA_MESSAGE_TYPE);
 			
-			if(newMessage.equals(MainActivity.this.getString(R.string.server_registered))) {
+			if(messageType == CommonUtilities.MESSAGE_TYPE_SERVER_REGISTERED) {
 				FragmentTransactionUtilities.transTo(MainActivity.this, new CountdownFragment(), "CountdownFragment", true);
 			}
 			Toast.makeText(MainActivity.this, newMessage, Toast.LENGTH_LONG)

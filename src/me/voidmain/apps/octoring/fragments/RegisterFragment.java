@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import me.voidmain.apps.octoring.R;
 import me.voidmain.apps.octoring.utils.CommonUtilities;
+import me.voidmain.apps.octoring.utils.FragmentTransactionUtilities;
 import me.voidmain.apps.octoring.utils.PrefsUtilities;
 import me.voidmain.apps.octoring.utils.ServerUtilities;
 import android.content.Context;
@@ -112,8 +113,7 @@ public class RegisterFragment extends Fragment {
 			GCMRegistrar.register(getActivity(), CommonUtilities.SENDER_ID);
 		} else {
 			if (GCMRegistrar.isRegisteredOnServer(getActivity())) {
-				Toast.makeText(getActivity(), R.string.already_registered,
-						Toast.LENGTH_LONG).show();
+				FragmentTransactionUtilities.transTo(getActivity(), new CountdownFragment(), "CountdownFragment", true);
 			} else {
 				setupAsyncTasks(getActivity(), regId,
 						PrefsUtilities.getPrefsString(getActivity(),
