@@ -33,8 +33,8 @@ public class GCMIntentService extends GCMBaseIntentService {
 				.register(context, registrationId, PrefsUtilities
 						.getPrefsString(context, R.string.prefs_key_path));
 
-		startAlarmService();
-		PushReminderService.startOnGoingNotification(context);
+		startAlarmService(context);
+		PushReminderReceiver.startOnGoingNotification(context);
 		CommonUtilities.sendMessage(context,
 				CommonUtilities.MESSAGE_TYPE_SERVER_REGISTERED, "");
 	}
@@ -56,7 +56,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 		Log.i(TAG, "Received message");
 		String message = getString(R.string.gcm_message);
 		Log.i(TAG, message);
-		PushReminderService.stopOnGoingNotification(context);
+		PushReminderReceiver.stopOnGoingNotification(context);
 	}
 
 	@Override
@@ -83,25 +83,28 @@ public class GCMIntentService extends GCMBaseIntentService {
 		return super.onRecoverableError(context, errorId);
 	}
 
-	private void startAlarmService() {
+	private void startAlarmService(Context context) {
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
-		cal.set(Calendar.MINUTE, 50);
+		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
-		if (cal.get(Calendar.HOUR_OF_DAY) > 15) {
-			cal.set(Calendar.HOUR_OF_DAY, 15);
-		} else {
-			cal.add(Calendar.DATE, -1);
-		}
+//		if (cal.get(Calendar.HOUR_OF_DAY) >= 15) {
+//			cal.add(Calendar.DATE, 1);
+//		} else {
+//			cal.set(Calendar.HOUR_OF_DAY, 15);
+//		}
+		cal.set(Calendar.HOUR_OF_DAY, 15); // past
 
-		Intent reminderIntent = new Intent(this, PushReminderService.class);
-		PendingIntent pintent = PendingIntent.getService(this,
-				PushReminderService.REQUEST_SETUP_NOTIFICATION, reminderIntent,
-				0);
+		System.out.println(cal);
+
+		Intent reminderIntent = new Intent(this, PushReminderReceiver.class);
+		PendingIntent pintent = PendingIntent.getBroadcast(context,
+				PushReminderReceiver.REQUEST_SETUP_NOTIFICATION,
+				reminderIntent, 0);
 
 		AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 		alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
-				1000, pintent);
+				AlarmManager.INTERVAL_DAY, pintent);
 	}
 
 }

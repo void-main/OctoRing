@@ -47,6 +47,8 @@
                 <category android:name="me.voidmain.apps.octoring" />
             </intent-filter>
         </receiver>
+        
+        <receiver android:name=".PushReminderReceiver"></receiver>
 
         <service android:name=".GCMIntentService" />
     </application>
