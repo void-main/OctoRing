@@ -11,10 +11,20 @@
     <string name="gcm_error">From GCM: error (%1$s).</string>
     <string name="gcm_recoverable_error">From GCM: recoverable error (%1$s).</string>
     <string name="gcm_deleted">From GCM: server deleted %1$d pending messages!</string>
-    <string name="server_registering">Trying (attempt %1$d/%2$d) to register device on Demo Server.</string>
-    <string name="server_registered">From Demo Server: successfully added device!</string>
-    <string name="server_unregistered">From Demo Server: successfully removed device!</string>
-    <string name="server_register_error">Could not register device on Demo Server after %1$d attempts.</string>
-    <string name="server_unregister_error">Could not unregister device on Demo Server (%1$s).</string>
+    <string name="server_registering">Trying (attempt %1$d/%2$d) to register device on OctoCaddice.</string>
+    <string name="server_registered">From OctoCaddice: successfully added device!</string>
+    <string name="server_unregistered">From OctoCaddice: successfully removed device!</string>
+    <string name="server_register_error">Could not register device on OctoCaddice after %1$d attempts.</string>
+    <string name="server_unregister_error">Could not unregister device on OctoCaddice (%1$s).</string>
+    
+    <string name="text_github_login">Github Login</string>
+    <string name="text_login_type">Login Type</string>
+    <string name="text_register">Slave me, master!</string>
+    <string-array name="login_type">
+        <item >User</item>
+        <item >Org</item>
+    </string-array>
+    
+    <string name="text_countdown_placeholder">Happy hacking!</string>
 
 </resources>

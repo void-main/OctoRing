@@ -1,5 +1,8 @@
 package me.voidmain.apps.octoring;
 
+import me.voidmain.apps.octoring.utils.CommonUtilities;
+import me.voidmain.apps.octoring.utils.PrefsUtilities;
+import me.voidmain.apps.octoring.utils.ServerUtilities;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -25,8 +28,7 @@ public class GCMIntentService extends GCMBaseIntentService {
     protected void onRegistered(Context context, String registrationId) {
         Log.i(TAG, "Device registered: regId = " + registrationId);
         CommonUtilities.displayMessage(context, getString(R.string.gcm_registered));
-        // TODO fixme!!
-        ServerUtilities.register(context, registrationId, "users/void-main");
+        ServerUtilities.register(context, registrationId, PrefsUtilities.getPrefsString(context, R.string.prefs_key_path));
     }
 
     @Override

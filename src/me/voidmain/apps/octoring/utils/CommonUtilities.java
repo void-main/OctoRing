@@ -1,4 +1,4 @@
-package me.voidmain.apps.octoring;
+package me.voidmain.apps.octoring.utils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,28 +8,28 @@ public final class CommonUtilities {
     /**
      * Base URL
      */
-    static final String SERVER_URL = "http://octocaddice.herokuapp.com";
+    public static final String SERVER_URL = "http://octocaddice.herokuapp.com";
 
     /**
      * Google API project id registered to use GCM.
      */
-    static final String SENDER_ID = "346184247837";
+    public static final String SENDER_ID = "346184247837";
 
     /**
      * Tag used on log messages.
      */
-    static final String TAG = "OctoRing";
+    public static final String TAG = "OctoRing";
 
     /**
      * Intent used to display a message in the screen.
      */
-    static final String UPDATE_PUSH_STATUS_ACTION =
+    public static final String UPDATE_PUSH_STATUS_ACTION =
             "me.voidmain.apps.octoring.action.UPDATE_PUSH_STATUS";
 
     /**
      * Intent's extra that contains the message to be displayed.
      */
-    static final String EXTRA_MESSAGE = "message";
+    public static final String EXTRA_MESSAGE = "message";
 
     /**
      * Notifies UI to display a message.
@@ -40,7 +40,7 @@ public final class CommonUtilities {
      * @param context application's context.
      * @param message message to be displayed.
      */
-    static void displayMessage(Context context, String message) {
+    public static void displayMessage(Context context, String message) {
         Intent intent = new Intent(UPDATE_PUSH_STATUS_ACTION);
         intent.putExtra(EXTRA_MESSAGE, message);
         context.sendBroadcast(intent);
