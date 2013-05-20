@@ -56,7 +56,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 		Log.i(TAG, "Received message");
 		String message = getString(R.string.gcm_message);
 		Log.i(TAG, message);
-		if(PrefsUtilities.getPrefsBoolean(context, R.string.prefs_has_update_today)) {
+		if(!PrefsUtilities.getPrefsBoolean(context, R.string.prefs_has_update_today)) {
 			PushReminderReceiver.stopOnGoingNotification(context);
 			PrefsUtilities.setPrefsBoolean(context, R.string.prefs_has_update_today, true);
 		}
