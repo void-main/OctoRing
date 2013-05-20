@@ -2,5 +2,6 @@
 <resources>
 
     <string name="prefs_key_path">prefs_key_path</string>
+    <string name="prefs_has_update_today">prefs_has_update_today</string>
 
 </resources>

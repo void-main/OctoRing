@@ -1,5 +1,6 @@
 package me.voidmain.apps.octoring;
 
+import me.voidmain.apps.octoring.utils.PrefsUtilities;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -19,10 +20,13 @@ public class PushReminderReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		Log.d("TAG", "PushReminder received");
+		PrefsUtilities.setPrefsBoolean(context, R.string.prefs_has_update_today, false);
 		startOnGoingNotification(context);
 	}
 
 	public static void startOnGoingNotification(final Context context) {
+		// do not start notification 
+		if(PrefsUtilities.getPrefsBoolean(context, R.string.prefs_has_update_today)) return; 
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
 				context)
 				.setSmallIcon(R.drawable.spinner_inner)

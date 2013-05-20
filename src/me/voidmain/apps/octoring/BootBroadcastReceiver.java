@@ -12,6 +12,7 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		Log.e(TAG, "Setting up alarm...");
 		GCMIntentService.startAlarmService(context);
+		PushReminderReceiver.startOnGoingNotification(context);
 		Log.e(TAG, "done!");
 	}
 
