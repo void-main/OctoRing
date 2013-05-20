@@ -83,7 +83,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 		return super.onRecoverableError(context, errorId);
 	}
 
-	private void startAlarmService(Context context) {
+	public static void startAlarmService(final Context context) {
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
@@ -95,12 +95,12 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 		System.out.println(cal);
 
-		Intent reminderIntent = new Intent(this, PushReminderReceiver.class);
+		Intent reminderIntent = new Intent(context, PushReminderReceiver.class);
 		PendingIntent pintent = PendingIntent.getBroadcast(context,
 				PushReminderReceiver.REQUEST_SETUP_NOTIFICATION,
 				reminderIntent, 0);
 
-		AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
 				AlarmManager.INTERVAL_DAY, pintent);
 	}

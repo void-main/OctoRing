@@ -10,10 +10,9 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		Log.e(TAG, "Starting GCM intent service...");
-		Intent serviceIntent = new Intent(context, GCMIntentService.class);
-		context.startService(serviceIntent);
-		Log.e(TAG, "GCM intent service started...");
+		Log.e(TAG, "Setting up alarm...");
+		GCMIntentService.startAlarmService(context);
+		Log.e(TAG, "done!");
 	}
 
 }
